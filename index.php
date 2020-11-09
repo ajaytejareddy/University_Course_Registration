@@ -130,7 +130,7 @@ hr {
 <body>
 
 <div id="id02" class="signin">
-  <form class="modal-content" method="$_POST" action="/SignIn.php">
+  <form class="modal-content" method="post" action="/SignIn.php">
     <div class="container">
       <h1 style="display:block; text-align:center;">Sign In</h1>
       <hr>
@@ -156,7 +156,7 @@ hr {
 
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" method="$_POST" action="/SignUp.php">
+  <form class="modal-content" method="post" action="SignUp.php">
     <div class="container">
       <h1>Sign Up</h1>
       <p>Please fill in this form to create an account.</p>
