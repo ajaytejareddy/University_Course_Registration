@@ -2,13 +2,17 @@
     include "DbConnect.php";
     $email = $_POST["email"];
     $psw = password_hash($_POST["psw"],PASSWORD_DEFAULT);
-    $name = $_POST["name"];
+    $name ="Ajay"; 
 
-    $con = new $insert();
+    $con = new Insert();
 
-    $a = $con->createUser($email,$name,$pwd);
+    $q = "INSERT INTO Users VAlUES(920036609,\"$email\",\"$name\",\"$epwd\");";
 
-    if($a == 0){
+
+    $a = $con->con;
+    $b = $a->query($q);
+
+    if($b == 0){
         echo "User not created";
     }
     else{
