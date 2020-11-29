@@ -8,12 +8,12 @@
 <body>
 
 <div id="id02" class="signin">
-  <form class="modal-content"  action="/SignIn.php" onsubmit="return check()" method="post" >
+  <form class="modal-content"  action="./SignIn.php" onsubmit="return check()" method="post" >
     <div class="container">
       <h1 style="display:block; text-align:center;">Sign In</h1>
       <hr>
 
-      <p id="validityError" style="color:red;"></p>
+      <p id="validityErr1" style="color:red;"></p>
       <label for="email"><strong>Email</strong></label>
       <input type="text" placeholder="Enter Email" name="email">
 
@@ -36,11 +36,11 @@
 
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="./SignUp.php" onsubmit="return checkValidity()" method="post" >
+  <form class="modal-content" action="./SignUp.php" onsubmit="return check_Validity()" method="post" >
     <div class="container">
       <h1 style="display:block; text-align:center;">Sign Up</h1>
       <p>Please fill in this form to create an account.</p>
-      <p id="validityError" style="color:red;"></p>
+      <p id="validityErr2" style="color:red;"></p>
       <hr>
 
       <label for="fname"><strong>First Name</strong></label>

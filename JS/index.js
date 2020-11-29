@@ -37,7 +37,7 @@ function checkPassLength(){
       }
  }
 
-function checkValidity(){
+function check_Validity(){
     const mailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/ig;
     const nameRegex = /^[a-z ,.'-]+$/ig;
     const idRegex = /^[0-9]{6,}$/g;
@@ -50,9 +50,9 @@ function checkValidity(){
     const email = formElement.email.value;
     const psw = formElement.psw.value;
     
-    const para = document.getElementById("validityError");
+    const para = document.getElementById("validityErr2");
 
-    if(checkEmptyString(fname,lname,email,wiuid)){
+    if(checkEmptyString(fname,lname,email,wiuid,psw)){
         topFunction();
         para.innerHTML = `Please Enter Valid information`;
         return false;
@@ -99,14 +99,15 @@ function topFunction() {
 
 function check(){
     const formElement = document.forms[0];
-    const para = document.getElementById("validityError");
+    const para = document.getElementById("validityErr1");
 
     const email = formElement.email.value;
     const psw = formElement.psw.value;
+
     if(checkEmptyString(email,psw)) {   
         
         para.style.color = 'red';
-        para.innerHTML = `Please Enter Valid information`;
+        para.innerHTML = `Please Enter Email and Password`;
         
         return false;
     }
