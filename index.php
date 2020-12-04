@@ -14,25 +14,25 @@
         <div class="container">
           <h1 style="display:block; text-align:center;">Sign In</h1>
           <?php 
-      if(isset($_POST['submit'])){
-        if(isset($_POST['semail'])){
-          $gemail = $_POST['semail'];
-          $gpwd = $_POST['spsw'];
-          //echo $gemail."  ".$gpwd;
-          
-          signIn($gemail,$gpwd);
-        }
-      }
+            if(isset($_POST['submit'])){
+              if(isset($_POST['semail'])){
+                $gemail = $_POST['semail'];
+                $gpwd = $_POST['spsw'];
+                //echo $gemail."  ".$gpwd;
+                
+                signIn($gemail,$gpwd);
+              }
+            }
         
-      ?>
+          ?>
           <hr>
 
           <p id="validityErr1" style="color:red;"></p>
           <label for="email"><strong>Email</strong></label>
-          <input type="text" placeholder="Enter Email" name="semail">
+          <input type="text" placeholder="Enter Email" name="semail" value="">
 
           <label for="psw"><strong>Password</strong></label>
-          <input type="password" placeholder="Enter Password" name="spsw">
+          <input type="password" placeholder="Enter Password" name="spsw" value="">
           
           <label>
             <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
@@ -101,7 +101,7 @@
 
           <div class="clearfix">
             <button type="submit"  name="submit" value="signUP" class="signupbtn">Sign Up</button>
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" value="button" class="cancelbtn">Cancel</button>
           </div>
         </div>
       </form>

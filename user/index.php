@@ -45,6 +45,8 @@
     include 'php/userHome-inc.php';
     $date="";
     $openTime = "";
+    //userpage();
+    //echo $_SESSION['uname'];
     list($date,$openTime) = getToday();
     $timeBooked = getCheckinDetails();
     ?>
@@ -52,6 +54,7 @@
         <p id="sb" style="color:green">  </p>
         <?php 
         //echo $date.$openTime;
+        userpage();
         checkin();?>
         <form method="post">
         <input id="date" name="date" value="<?= $date ?>" hidden>
@@ -68,7 +71,7 @@
         let btn = document.getElementById('button');
         let b <?= "= '$timeBooked';" ?>
         if(b){
-            document.getElementById('sb').innerHTML = `You can visit store on ${b} at ${b}`;
+            document.getElementById('sb').innerHTML = `You can visit store on ${date.value} at ${b}`;
             btn.disabled = true;
         }
         else{
