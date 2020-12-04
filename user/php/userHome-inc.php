@@ -17,7 +17,7 @@ function checkin(){
         $openTime = $_POST['opentime'];
         //echo $openTime."\t".$date."<br>";
         $uname = isset($_SESSION['uname'])?$_SESSION['uname']:"";
-        $bool = $con -> slotCheckin($date,$openTime,"ajaytejareddy13@gmail.com");
+        $bool = $con -> slotCheckin($date,$openTime,$uname);
         if($bool)
             echo "<p style='color:green;'>**Checked in Successfully**</p>";
         else
@@ -27,15 +27,21 @@ function checkin(){
 
 function getCheckinDetails(){
     $con = new Database();
+    $username = $_SESSION['uname'];
+    //echo $_SESSION['uname'];
     list($date,$time) = getToday();
     if($date!=="undefined" || $time!=="undefined"){
-        $keydate = $con->getDetails($_SESSION['uname'],$date,$time);
-        if($keydate !==0)
+        $keydate = $con->getDetails($username,$date,$time);
+        //echo $keydate;
+        if($keydate !==0){
             return date('h:i a',strtotime($time));
+        }
     }   
     return ;
 }
 
-print_r(getToday());
-
+// $con = new Database();
+// list($date,$time) = getToday();
+// echo $con->getDetails("ajaytejareddy13@gmail.com",'2020-12-04','22:00:00')."\n\n";
+// echo $date.$time;
 ?>

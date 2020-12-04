@@ -46,11 +46,12 @@
     $date="";
     $openTime = "";
     list($date,$openTime) = getToday();
+    $timeBooked = getCheckinDetails();
     ?>
     <div class="center">
-        <p id="sb" style="coor:green">  </p>
+        <p id="sb" style="color:green">  </p>
         <?php 
-        $timeBooked = getCheckinDetails();
+        //echo $date.$openTime;
         checkin();?>
         <form method="post">
         <input id="date" name="date" value="<?= $date ?>" hidden>
@@ -67,7 +68,7 @@
         let btn = document.getElementById('button');
         let b <?= "= '$timeBooked';" ?>
         if(b){
-            document.getElementById('date').value = `You can visit store on ${date} at ${b}`;
+            document.getElementById('sb').innerHTML = `You can visit store on ${b} at ${b}`;
             btn.disabled = true;
         }
         else{

@@ -1,35 +1,34 @@
 <style>
-#main_menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333333;
-  }
-  
-  #main_menu li {
-      margin:0 auto;
-    float: left;
-  }
-  
-  #main_menu li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 25px;
-    text-decoration: none;
-  }
-  
-  #main_menu li a:hover {
-    background-color: #111111;
-  }
+  #main_menu ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333333;
+    }
+    
+    #main_menu li {
+        margin:0 auto;
+      float: left;
+    }
+    
+    #main_menu li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      text-decoration: none;
+    }
+    
+    #main_menu li a:hover {
+      background-color: #111111;
+    }
 
 </style>
 
 <?php
   $menuItems = array(
-      'Home' => './',
-      'statistics' => '/FinalProj/stats.php',
+      'Home' => '/FinalProj/user',
       'settings'=> '/FinalProj/user/settings.php',
       'Sign Out' => '/FinalProj/signout.php'
   );
