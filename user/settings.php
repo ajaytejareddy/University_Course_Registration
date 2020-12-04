@@ -6,14 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-
-    <?php
-    include 'C:/Apache24/htdocs/FinalProj/php/menu-con.php';
-    include 'C:/Apache24/htdocs/FinalProj/php/adminSet-inc.php';
-    ?>
-    <div id="settings" style="">
+<div id="settings" style="">
     <h1>Admin Details</h1>
+    <?php
 
+    function changePassword(){
+        
+    }
+
+    ?>
     <img id='profileImage'></img>
     <form method="post" onsubmit="return checkForm()">
         <?php changePassword();?>

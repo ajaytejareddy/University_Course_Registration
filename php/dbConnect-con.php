@@ -25,7 +25,7 @@ class Database{
          }
     }
         
-   
+   //user functions
     function createUser($id,$email,$fname,$lname,$pwd){
         //connection variable
         $this->openConnection();
@@ -93,6 +93,7 @@ class Database{
         }
     }
 
+    //Admin functions
     function verifyAdmin($uname,$pwd){
         $this->openConnection();
 
@@ -162,15 +163,43 @@ class Database{
 
     }
 
-    function createSlot($date,$oTime,$cTime,$allowed,$description){
+    //slot table functions
+
+    function createSlot($date,$openTime,$closeTime,$max_allowed,$description){
         $this->openConnection();
+
         try{
-            $description = $this->con->real_escape_string($description);
-            $date = Ymd($date);
-            $q = "INSERT INTO 
-                slot_table(date,open_time,close_time,allowed_interval,slots,description) 
-                VALUES
-                ('$date',\"$oTime\",\"$cTime\",$allowed,'{}',\"$description\");";
+            //query
+
+            $aryJson = array();
+
+            $stime = $openTime;
+            $ctime = $closeTime;
+
+            $time = strtotime($stime);
+
+            while(true){    
+                //echo $stime."\n";
+                $aryJson[$stime] = array(); 
+
+                $stime = date("H:i", strtotime('+10 minutes', $time));
+                
+                
+                if(strtotime($stime)>strtotime($ctime))
+                    break;
+                
+                $time = strtotime($stime);
+                //$stime = date("H:i:s", strtotime('-10 minutes', $time));
+            }
+
+            //$json = array($openTime=>array());
+            $json = json_encode($aryJson);
+            $date =  date('Y-m-d', strtotime($date));
+
+            $q = "INSERT INTO slot_table(date,open_time,close_time,allowed_interval,slots,description)  
+                    VAlUES
+                    (\"$date\",\"$openTime\",\"$closeTime\",\"$max_allowed\",'$json',\"$description\");";
+            //echo $this->q."\n";
 
             if($this->con->query($q)===TRUE){
                 $this->con->close();
@@ -183,9 +212,9 @@ class Database{
                 return 0;
             }
         }
-        catch(Exception $e){
-            echo "Database Error";
 
+        catch(Exception $e){
+            return "Database Error";
         }
     }
 
@@ -227,9 +256,6 @@ class Database{
         catch(Exception $e){
             return "Database Error";
         }
-
-
-
     }
 
     function delSlot($date,$time){
@@ -250,6 +276,148 @@ class Database{
                 return 0;
             }
 
+        }
+        catch(Exception $e){
+            return "Database Error";
+        }
+
+    }
+
+    function getDate_OTime(){
+        $this->openConnection();
+
+        try{
+            $q="SELECT 
+                date,open_time 
+                FROM 
+                slot_table 
+                WHERE 
+                date=current_date() AND open_time<=(current_time() + INTERVAL 30 MINUTE) AND close_time>=current_time();
+            ";
+          
+            $result = $this->con->query($q);
+            $resultAry = array();
+
+            if($result->num_rows !== 1){
+                $this->con->close();
+                return array("undefined","undefined");
+            }
+
+            $row = $result->fetch_assoc();
+            //echo $row['epwd']."<br />";
+            array_push($resultAry,$row['date'],$row['open_time']);
+            
+            //echo "true";
+            $this->con->close();
+            return $resultAry;
+        }
+        
+        catch(Exception $e){
+            return "Database Error";
+        }
+
+    }
+
+    function slotCheckin($date,$time,$username){
+        $this->openConnection();
+        try{
+            $gq = "SELECT slots,allowed_interval FROM slot_table WHERE date = '$date' AND open_time = '$time';";
+            
+            $result = $this->con->query($gq);
+
+            if($result->num_rows !== 1){
+                $this->con->close();
+                return array("undefined","undefined");
+            }
+
+            $row = $result->fetch_assoc();
+            
+            $jsonObj = $row['slots'];
+            $max_allowed = $row['allowed_interval'];
+
+            $aryJson = json_decode($jsonObj,true);
+
+            date_default_timezone_set('Asia/Kolkata');
+
+            $currTime = date("H:i:s");
+            
+            $full = 1;
+           
+
+            foreach($aryJson as $key=>$value){
+                if(strtotime($key)>=strtotime($currTime)){
+                    if(count($aryJson[$key]) < $max_allowed){
+                        if(!in_array($username,$aryJson[$key])){
+                            array_push($aryJson[$key],$username);
+                            
+                            $full = 0;
+                            break;
+                        }
+                    break;
+                    }
+                }
+            }
+            
+            if($full === 1){
+                return 0;
+            }
+
+            $jsonObj = json_encode($aryJson);
+
+            $q = "UPDATE slot_table 
+            SET slots = '$jsonObj' WHERE date = '$date' AND open_time='$time';";
+
+            if($this->con->query($q)===TRUE){
+                $this->con->close();
+                return 1;
+            }
+
+            else{
+                echo $this->con->error;
+                $this->con->close();
+                return 0;
+            }
+
+
+        }
+        catch(Exception $e){
+            $this->con->close();
+            return 0;
+        }
+    }
+
+    function getDetails($username,$date,$time){
+        $this->openConnection();
+        try{
+            $gq = "SELECT slots FROM slot_table WHERE date = '$date' AND open_time = '$time';";
+                
+            $result = $this->con->query($gq);
+            if(isset($result)){
+                if($result->num_rows !== 1){
+                    $this->con->close();
+                    return array("undefined","undefined");
+                }
+
+                $row = $result->fetch_assoc();
+                    
+                $jsonObj = $row['slots'];
+
+                $aryJson = json_decode($jsonObj,true);
+                $found  = 0;
+                $keyFound = 0;
+                foreach($aryJson as $key=>$value){
+                    if(in_array($username,$aryJson[$key])){
+                            $found = 1;
+                            $keyFound = $key;
+                            break;
+                    }
+                }
+
+                if($found == 1){
+                    return $keyFound;
+                }
+                return 0;
+            }
         }
         catch(Exception $e){
             return "Database Error";

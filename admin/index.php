@@ -63,7 +63,7 @@
   <h3 style = "background-color:#008CBA; color:white; text-align:center; height:50px; padding: 10px; border-radius: 25px;">Time slot creation</h3>
   <form autocomplete="off" method='post' onsubmit="return getVal()">
   <?php 
-    include 'C:/Apache24/htdocs/FinalProj/php/adminHome-con.php';
+    include 'C:/Apache24/htdocs/FinalProj/php/adminHome-inc.php';
     check();
   ?>
   <p><label> 

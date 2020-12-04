@@ -5,30 +5,34 @@ include 'session-con.php';
 startSession();
 
 //$glname = $_SESSION['lname'];
-$gemail = $_SESSION['email'];
-$gpwd = $_SESSION['pwd'];
+$email = isset($_SESSION['uname']) ? $_SESSION['uname']:"";
+$pwd = isset($_SESSION['pwd']) ? $_SESSION['pwd']: "";
 
 // pass a zero (0) value for index page
 function pagesType($page){
-    if(isset($_SESSION['lname']) && isset($_SESSION['email']) && isset($_SESSION['pwd']) ){
+    if(isset($_SESSION['uname']) && isset($_SESSION['pwd']) ){
         echo "a";
         if($page !== 0 || $page !== 'index')
-          header('Location: ./index.php');
+          header('Location: /FinalProj/');
 
         return;
          }
-
+      
+      
+   $gemail = isset($_SESSION['uname']) ? $_SESSION['uname']:"";
+   $gpwd = isset($_SESSION['pwd']) ? $_SESSION['pwd']: "";
+         
     $con = new Database();
 
-    if(!$con->verifySignIn($gemail,$gpwd)){
-       // header('Location: ./index.php');
+    if($con->verifySignIn($gemail,$gpwd)){   
+        header('Location: ./user/');
     }
 
     if($page !== 0){
-       header('Location: ./Home.php');
+       //echo "";
+       header('Location: /FinalProj/');
     }
 
 }
-
 
 ?>
