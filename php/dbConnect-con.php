@@ -33,7 +33,7 @@ class Database{
         try{
             //query
             $id = $this->con->real_escape_string($id);
-            $email = $this->con->real_escape_string($email);
+            $email = strtolower($this->con->real_escape_string($email));
             $fname = $this->con->real_escape_string($fname);
             $lname = $this->con->real_escape_string($lname);
             $epwd = password_hash($pwd,PASSWORD_DEFAULT);
@@ -62,7 +62,7 @@ class Database{
 
 
         try{
-            $email = $this->con->real_escape_string($email);
+            $email = strtolower($this->con->real_escape_string($email));
             $q="SELECT epwd FROM cust_table WHERE email=\"$email\";";
         //    echo $q."<br>";
           
