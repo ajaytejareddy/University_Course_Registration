@@ -9,13 +9,15 @@ function userpage(){
     if(!(isset($_SESSION['uname']) && isset($_SESSION['pwd'])) || isset($_SESSION['admin'])){
         header('Location:/FinalProj/');
     }
+    $uname = $_SESSION['uname'];
+    $pwd = $_SESSION['pwd'];
 
-}
+    $con = new Database();
 
-function adminPage(){
-    if(isset($_SESSION['admin']) && isset($_SESSION['uname']) && isset($_SESSION['pwd'])){
-        header('Location:/FinalProj/');
+    if(!$con->verifySignIn($uname,$pwd)){
+        header('Location: /FinalProj');
     }
+
 }
 
 ?>

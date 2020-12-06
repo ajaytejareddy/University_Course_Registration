@@ -292,7 +292,7 @@ class Database{
                 FROM 
                 slot_table 
                 WHERE 
-                date=current_date() AND open_time<=(current_time() + INTERVAL 30 MINUTE) AND close_time>=current_time();
+                date=current_date() AND open_time<=ADDTIME(current_time(),'00:30:00') AND close_time>=current_time();
             ";
           
             $result = $this->con->query($q);
@@ -339,7 +339,7 @@ class Database{
 
             date_default_timezone_set('Asia/Kolkata');
 
-            $currTime = date("H:i:s");
+            $currTime = date("H:i");
             
             $full = 1;
            
@@ -406,6 +406,8 @@ class Database{
                 $found  = 0;
                 $keyFound = 0;
                 foreach($aryJson as $key=>$value){
+                    // print_r($aryJson[$key]);
+                    // echo " => $key<br>";
                     if(in_array($username,$aryJson[$key])){
                             $found = 1;
                             $keyFound = $key;

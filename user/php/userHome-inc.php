@@ -1,5 +1,5 @@
 <?php
-include 'C:/Apache24/htdocs/FinalProj/php/session-inc.php';
+include '/var/www/html/FinalProj/php/session-inc.php';
 
 
 function getToday(){
@@ -14,10 +14,15 @@ function checkin(){
     //echo $_POST['submit'];
     if(isset($_POST['submit'])){
         $date = isset($_POST['date'])?$_POST['date']:"";
+        
         $openTime = $_POST['opentime'];
         //echo $openTime."\t".$date."<br>";
         $uname = isset($_SESSION['uname'])?$_SESSION['uname']:"";
         $bool = $con -> slotCheckin($date,$openTime,$uname);
+        
+       //echo "$date $openTime = $uname";
+       unset($_POST['submit']);
+
         if($bool)
             echo "<p style='color:green;'>**Checked in Successfully**</p>";
         else
@@ -34,7 +39,8 @@ function getCheckinDetails(){
         $keydate = $con->getDetails($username,$date,$time);
         //echo $keydate;
         if($keydate !==0){
-            return date('h:i a',strtotime($time));
+            //echo date('h:i:s a',strtotime($time));
+            return $keydate;
         }
     }   
     return ;

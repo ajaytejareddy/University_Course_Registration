@@ -6,7 +6,7 @@ include 'session-con.php';
 startSession();
 
     if(isset($_SESSION['admin'])){
-        $uname = $_SESSION['username'];
+        $uname = $_SESSION['uname'];
         $pwd = $_SESSION['pwd'];
 
         $con = new Database();

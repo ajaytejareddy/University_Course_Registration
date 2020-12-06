@@ -8,8 +8,8 @@
 <body>
 
     <?php
-    include '/var/www/html/FinalProj/php/menu-con.php';
-    include '/var/www/html/FinalProj/php/adminSet-inc.php';
+    include 'C:/Apache24/htdocs/FinalProj/php/menu-con.php';
+    include 'C:/Apache24/htdocs/FinalProj/php/adminSet-inc.php';
     ?>
     <div id="settings" style="">
     <h1>Admin Details</h1>

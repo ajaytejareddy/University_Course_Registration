@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin::Home</title>
   
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <script src="JS/jquery-1.12.4.js"></script>
+  <script src="JS/jquery-ui.js"></script>
+  <script src="JS/jquery.timepicker.min.js"></script>
+  <link rel="stylesheet" href="css/jquery.timepicker.min.css">
   
   <style>
     .tableclass{
@@ -57,13 +57,13 @@
  
 </head>
 <body>
-<?php include '/var/www/html/FinalProj/php/menu-con.php';?>
+<?php include 'C:\Apache24\htdocs\FinalProj\php\menu-con.php';?>
 
 <div id="form-wrapper" style="max-width:500px;margin:auto;">
   <h3 style = "background-color:#008CBA; color:white; text-align:center; height:50px; padding: 10px; border-radius: 25px;">Time slot creation</h3>
   <form autocomplete="off" method='post' onsubmit="return getVal()">
   <?php 
-    include '/var/www/html/FinalProj/php/adminHome-inc.php';
+    include 'C:/Apache24/htdocs/FinalProj/php/adminHome-inc.php';
     check();
   ?>
   <p><label> 
