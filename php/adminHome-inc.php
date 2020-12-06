@@ -11,8 +11,11 @@
         $con = new Database();
 
         if(!$con->verifyAdmin($uname,$pwd)){
-            header('Location: /FinalProj/');
+            header('Location: /FinalProj/signout.php');
         }
+    }
+    else{
+        header('Location: /FinalProj');
     }
 
     function Check(){

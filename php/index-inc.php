@@ -6,6 +6,35 @@ include 'session-con.php';
 
 //check uname and password
 startSession();
+
+
+if(isset($_SESSION['admin'])){
+    $uname = $_SESSION['uname'];
+    $pwd = $_SESSION['pwd'];
+
+    $con = new Database();
+
+    if($con->verifyAdmin($uname,$pwd)){
+        header('Location: /FinalProj/admin');
+    }
+    else{
+        header('Location: /FinalProj/signout.php');
+    }
+}
+else if(isset($_SESSION['uname']) && isset($_SESSION['pwd'])){
+    $uname = $_SESSION['uname'];
+    $pwd = $_SESSION['pwd'];
+
+    $con = new Database();
+
+    if($con->verifySignIn($uname,$pwd)){
+        header('Location: /FinalProj/user');
+    }
+    else{
+        header('Location: /FinalProj/signout.php');
+    }
+}
+
 function signIn($email,$pwd){
     $con = new Database();
     //echo $email.$pwd;
