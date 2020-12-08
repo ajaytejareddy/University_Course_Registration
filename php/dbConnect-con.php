@@ -427,4 +427,61 @@ class Database{
 
     }
 
+    function getWeekStats(){
+        $this->openConnection();
+        $resultAry = array();
+
+        try{
+            $q="SELECT 
+                date,slots 
+                FROM 
+                slot_table 
+                WHERE 
+                date<=current_date() AND date>=ADDDATE(CURRENT_DATE(), INTERVAL -7 DAY);
+            ";
+          
+            $result = $this->con->query($q);
+            $resultAry = array();
+
+            if($result->num_rows < 1){
+                $this->con->close();
+                return ;
+            }
+
+           while($row = $result->fetch_assoc()){
+            //echo $row['epwd']."<br />";
+            $resultAry[$row['date']]=$row['slots'];
+           }
+            //echo "true";
+            $resultFinal = array();
+
+            foreach($resultAry as $key=>$value){
+
+                $slotAry = json_decode($value,true);
+                $count = 0;
+
+                foreach($slotAry as $k=>$v){
+                    $count += count($v);
+                }
+
+                //echo "$key => $count \n";
+                $resultFinal[$key] = $count;
+
+               // print_r($slotAry);
+            }
+            //print_r($result);
+
+            $this->con->close();
+
+            return $resultFinal;
+        }
+        
+        catch(Exception $e){
+            return "Database Error";
+        }
+    }
+
+
 }
+
+?>
