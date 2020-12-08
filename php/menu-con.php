@@ -29,7 +29,7 @@
 <?php
 $menuItems = array(
     'Home' => './',
-    'statistics' => '/FinalProj/stats.php',
+    'statistics' => '/FinalProj/admin/stats.php',
     'settings'=> '/FinalProj/admin/settings.php',
     'Sign Out' => '/FinalProj/signout.php'
 );
