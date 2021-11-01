@@ -1,1 +1,1 @@
-# University Dining check-in system
+# University Course Registration
